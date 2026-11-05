@@ -145,9 +145,11 @@ with st.expander("최종 시스템 지시문 확인 (프롬프트문 + 데이터
 st.divider()
 st.subheader("4. 대화")
 
-missing = [n for n, v in [("API 키", api_key), ("프롬프트문", prompt_text.strip()), ("데이터셋 ttl", data_text)] if not v]
+missing = [n for n, v in [("API 키", api_key), ("프롬프트문", prompt_text.strip())] if not v]
 if missing:
-    st.info(f"{', '.join(missing)}을(를) 입력하면 대화를 시작할 수 있습니다.")
+    st.info("다음 항목을 입력하면 대화를 시작할 수 있습니다: " + ", ".join(missing))
+elif not data_text:
+    st.warning("데이터셋 ttl 없이 대화합니다. 챗봇은 프롬프트문만 보고 답합니다.")
 
 if GREETING and not ss.messages:
     ss.messages.append({"role": "assistant", "content": GREETING})
